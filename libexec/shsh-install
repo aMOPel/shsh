@@ -167,6 +167,33 @@ fi
 case "$operation" in
   #########
   plain|archpkg)
+    case "${1%%@*}" in
+    */*/*)
+      IFS=/ read -r site user name <<EOF
+$1
+EOF
+      ;;
+    */*)
+      IFS=/ read -r user name <<EOF
+$1
+EOF
+      site="github.com"
+      ;;
+    *)
+      shsh-help install
+      exit 1
+      ;;
+    esac
+    gitrepo="${user}/${name}"
+    [ -z "$package" ] && package="${gitrepo%%@*}"
+    ref=""
+    case "$gitrepo" in
+    */*@*)
+      IFS=@ read -r gitrepo ref <<EOF
+$gitrepo
+EOF
+      ;;
+    esac
     if [ -z "$package" ]; then
       if parse_install_folder "$1" "$operation"; then
         package="$_folder_full"
