@@ -99,6 +99,21 @@ if [ -n "$gh_release" ]; then
   # shellcheck disable=SC2016
   _script='wget '"$(echo "$item" | jq -r '.browser_download_url' | head -1)"' && '$unarchive_cmd' "$gh_release_asset"'
   execute_hooks "downloading gh-release" "$target_folder" "$_script"
+
+  # move files 1 directory up, if they are all in 1 sub directory,
+  # because the file searching breaks down otherwise
+  extracted=$target_folder/$(ls --ignore=*gz --ignore=*xz --ignore=*zip --ignore=.gh-release_info $target_folder)
+  case "$(echo $extracted | wc -w)" in
+    1)
+    for fileOrDir in $(ls -A $extracted)
+     do
+       mv $extracted/$fileOrDir $extracted/../$fileOrDir
+     done
+     rm -r $extracted
+     
+    ;;
+  esac
+
 fi
 
 # run hooks
