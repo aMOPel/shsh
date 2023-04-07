@@ -18,7 +18,32 @@ IFS=:
 if [ -n "${BASH_COMPLETIONS:=}" ]; then
   mkdir -p "$SHSH_PREFIX/completions/bash"
   for completion in $BASH_COMPLETIONS; do
-    ln -s "$target_folder/$completion" "$SHSH_PREFIX/completions/bash/${completion##*/}"
+    add_link "$target_folder/$completion" "$SHSH_PREFIX/completions/bash/${completion##*/}"
+  done
+else
+  target="$SHSH_PREFIX/completions/bash/"
+  mkdir -p "$target"
+  ##### the following brace expansion is not supported in POSIX
+  # "$target_folder"/{,auto}{complete,completion}{,s}{,/bash}/*.bash
+  for file in \
+    "$target_folder"/complete/*.bash             \
+    "$target_folder"/complete/bash/*.bash        \
+    "$target_folder"/completes/*.bash            \
+    "$target_folder"/completes/bash/*.bash       \
+    "$target_folder"/completion/*.bash           \
+    "$target_folder"/completion/bash/*.bash      \
+    "$target_folder"/completions/*.bash          \
+    "$target_folder"/completions/bash/*.bash     \
+    "$target_folder"/autocomplete/*.bash         \
+    "$target_folder"/autocomplete/bash/*.bash    \
+    "$target_folder"/autocompletes/*.bash        \
+    "$target_folder"/autocompletes/bash/*.bash   \
+    "$target_folder"/autocompletion/*.bash       \
+    "$target_folder"/autocompletion/bash/*.bash  \
+    "$target_folder"/autocompletions/*.bash      \
+    "$target_folder"/autocompletions/bash/*.bash
+  do
+    add_link "$file" "$target"
   done
 fi
 
