@@ -105,12 +105,13 @@ if [ -n "$gh_release" ]; then
   extracted=$target_folder/$(ls --ignore=*gz --ignore=*xz --ignore=*zip --ignore=.gh-release_info $target_folder)
   case "$(echo $extracted | wc -w)" in
     1)
-    for fileOrDir in $(ls -A $extracted)
-     do
-       mv $extracted/$fileOrDir $extracted/../$fileOrDir
-     done
-     rm -r $extracted
-     
+    if [ -d "$extracted" ]; then
+      for fileOrDir in $(ls -A $extracted)
+        do
+          mv $extracted/$fileOrDir $extracted/../$fileOrDir
+        done
+        rm -r $extracted
+    fi
     ;;
   esac
 
