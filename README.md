@@ -26,7 +26,7 @@ Shsh is a POSIX-compatible script handler, as a former fork of [basher](https://
 
 Automatically bootstrap and install `shsh` (which would also modify your shell's init script)
 ```sh
-curl -s https://raw.githubusercontent.com/soraxas/shsh/master/bootstrap/install.sh | sh
+curl -s https://raw.githubusercontent.com/aMOPel/shsh/master/bootstrap/install.sh | sh
 ```
 
 ### Recipes
@@ -42,7 +42,7 @@ shsh install ranger/ranger -v REMOVE_EXTENSION=true -v BINS=ranger.py -h pre='se
    
    ```sh
     # clone shsh and add shsh to $PATH variable
-    $ git clone https://github.com/soraxas/shsh ~/.local/share/shsh
+    $ git clone https://github.com/aMOPel/shsh ~/.local/share/shsh
     $ export PATH="$HOME/.local/share/shsh/bin:$PATH"
     # Optional: link shsh's own completion files and man pages to cellar
     $ cd ~/.local/share/shsh && make self-linking

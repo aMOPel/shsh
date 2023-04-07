@@ -3,7 +3,7 @@
 set -e
 
 # source shsh environment variable
-eval "$(curl -s https://raw.githubusercontent.com/soraxas/shsh/master/libexec/shsh-_env-var)"
+eval "$(curl -s https://raw.githubusercontent.com/aMOPel/shsh/master/libexec/shsh-_env-var)"
 
 ## stop if basher is already installed
 if [ -d "$SHSH_ROOT" ]; then
@@ -13,7 +13,7 @@ fi
 
 
 echo "Installing shsh to '$SHSH_ROOT'"
-git clone https://github.com/soraxas/shsh.git "$SHSH_ROOT" > /dev/null
+git clone https://github.com/aMOPel/shsh.git "$SHSH_ROOT" > /dev/null
 
 # Check shell type
 shell_type=$(basename "$SHELL")
