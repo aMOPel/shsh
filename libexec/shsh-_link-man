@@ -48,6 +48,9 @@ if [ -z "${MANS+x}" ]; then
 else
   IFS=:
   for file in $MANS; do
-    link_mans "$file"
+    case $file in
+      /*) link_mans "$file" ;;
+      *) link_mans "$target_folder"/"$file" ;;
+    esac
   done
 fi
